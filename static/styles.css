@@ -1,0 +1,95 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: arial;
+    scroll-behavior: smooth;
+}
+
+.carousel-caption {
+    position: relative;
+    z-index: 3;
+    padding: 20px;
+}
+
+.carousel-caption-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    z-index: 2;
+}
+
+.carousel-caption h1,
+.carousel-caption p,
+.carousel-caption a {
+    position: relative;
+    z-index: 3;
+    padding: 3px;
+}
+
+#shop-btn {
+    background-color: #4F6F52;
+}
+
+footer link
+.col-6>a {
+    display: block;
+}
+
+/* shop now btn */
+
+#shop-btn{
+    background-color:#ff8100;
+}
+
+
+/* categories nav link */
+
+.nav-item .nav-link {
+    font-size: 20px;
+}
+
+
+
+@media (max-width: 768.98px) {
+    #input-form {
+        width: 35%;
+    }
+}
+
+
+
+/* responsive blog post. modify the width of image in each breakpoints */
+
+@media (min-width: 768px) {
+    .bg {
+        width: 350px;
+    }
+}
+
+@media (min-width: 992px) {
+    .bg {
+        width: 230px;
+
+    }
+}
+
+@media (min-width: 1200px) {
+    .bg {
+        width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .bg {
+        width: 250px;
+    }
+}
+
+@media (max-width: 578px) {
+    .bg {
+        width: 100%;
+    }
+}
