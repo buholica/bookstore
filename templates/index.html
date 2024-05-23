@@ -1,55 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hallow Bookish</title>
-    <link rel="icon" type="image/x-icon" href="/static/img/book_icon.png">
-
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-
-    <!--Font awesome!-->
-    <script src="https://kit.fontawesome.com/f4e855eb8f.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <div class="container pt-3">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <div class="col-md-3 mb-2 mb-md-0">
-                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <img class="bi" width="60" height="80" role="img" aria-label="logo" src="/static/img/logo.png"></img>
-                </a>
-            </div>
-      
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 link-success">Home</a></li>
-              <li><a href="#" class="nav-link px-2 link-success">Library</a></li>
-              <li><a href="#" class="nav-link px-2 link-success">Subscription</a></li>
-              <li><a href="#" class="nav-link px-2 link-success">FAQs</a></li>
-              <li><a href="#" class="nav-link px-2 link-success">About</a></li>
-            </ul>
-      
-            <div class="col-md-4 text-end">
-                <a type="button" class="btn btn-outline-success fw-500 rounded ">
-                    <i class="fa-solid fa-user me-lg-2"></i>
-                    <p class="d-none d-lg-inline">Sign in</p>
-                </a>
-                <a type="button" class="btn btn-outline-success fw-500 rounded">
-                    <i class="fa-solid fa-heart me-lg-2"></i>
-                    <p class="d-none d-lg-inline">Wishlist</p>
-                </a>
-                <a type="button" class="btn btn-outline-success fw-500 rounded ">
-                    <i class="fa-solid fa-cart-shopping me-lg-2"></i>
-                    <p class="d-none d-lg-inline">My Cart</p>
-                </a>
-            </div>
-        </header>
-    </div>
+{% include "header.html" %}
 
     <!-- Main Screen --->
     <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
@@ -67,7 +16,7 @@
                         <div class="carousel-caption-bg"></div>
                         <h1>Unlock Your 30% Discount!</h1>
                         <p class="opacity-80">Sign up now and enjoy a 30% discount on your first purchase.</p>
-                        <p><a class="btn btn-lg btn-success" href="#">Sign Up Today</a></p>
+                        <p><a class="btn btn-lg btn-success px-3 py-2" href="#">Sign Up Today</a></p>
                     </div>
                 </div>
             </div>
@@ -79,7 +28,7 @@
                         <div class="carousel-caption-bg"></div>
                         <h1>Join Our Book Clubs</h1>
                         <p class="opacity-80">Discover and join local book clubs for engaging discussions and community gatherings.</p>
-                        <p><a class="btn btn-lg btn-success" href="#">Learn More</a></p>
+                        <p><a class="btn btn-lg btn-success px-3 py-2" href="#">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -92,7 +41,7 @@
                         <div class="carousel-caption-bg"></div>
                         <h1>Enjoy Free Shipping</h1>
                         <p class="opacity-80">Enjoy free shipping on your orders and conveniently pick them up at the nearest library.</p>
-                        <p><a class="btn btn-lg btn-success" href="#">Learn More</a></p>
+                        <p><a class="btn btn-lg btn-success px-3 py-2" href="#">Learn More</a></p>
                     </div>
                 </div>
             </div>
@@ -231,64 +180,4 @@
             </div>
         </div>  -->
 
-
-        <!-- Footer -->
-
-        <div class="py-5">
-            <div class="container">
-
-                <div class="row d-flex">
-
-                    <div class="col-md-12 col-lg-3 mb-3">
-                        <img alt="logo" src="/static/img/logo.png" width="45px" height="60px"></img>
-                        <p class="mt-4 text-muted">© 2024 Bookish<br>All rights reserved.</p>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-                        <h6 class="h6 fw-bold">Categories</h6>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">New books</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Fiction</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Nonfiction</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-                        <h6 class="h6 fw-bold">Explore</h6>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About us</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Book clubs</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Sign in/Join</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2 mt-3 mt-md-0">
-                        <h6 class="h6 fw-bold">Support</h6>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Returns</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Shipping</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Contact us</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 mt-3 mt-lg-0">
-
-                        <h6 class="h6 fw-bold">Subscribe to our newsletters</h6>
-
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                                aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-success" type="button">Join</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-</body>
-
-</html>
+{% include "footer.html" %}

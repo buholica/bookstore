@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship, DeclarativeBase
 from sqlalchemy import Integer, String, Text, ForeignKey, Column
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'HGGeye899GhsbY737Kg47dggfT'
@@ -31,6 +32,7 @@ class Books(db.Model):
 with app.app_context():
     db.create_all()
 
+CURRENT_YEAR = datetime.now().year
 
 # ----------------------------- Routes ------------------------- #
 @app.route("/")
@@ -38,7 +40,12 @@ def homepage():
     result = db.session.execute(db.select(Books))
     books = result.scalars().all()
     new_books = books[-4:]
-    return render_template("index.html", books=new_books)
+    return render_template("index.html", books=new_books, year=CURRENT_YEAR)
+
+
+@app.route("/log_in")
+def log_in():
+    return render_template("login.html", year=CURRENT_YEAR)
 
 
 if __name__ == "__main__":
