@@ -23,7 +23,7 @@
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <div class="col-md-3 mb-2 mb-md-0">
                 <a href="{{ url_for('homepage') }}" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <img class="bi" width="60" height="80" role="img" aria-label="logo" src="/static/img/logo.png"></img>
+                    <img class="bi" width="60" height="80" role="img" aria-label="logo" src="/static/img/logo.png">
                 </a>
             </div>
 
@@ -34,8 +34,8 @@
                         Store
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Fiction</a></li>
-                        <li><a class="dropdown-item" href="#">Nonfiction</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('show_fiction')}}">Fiction</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('show_nonfiction')}}">Nonfiction</a></li>
                         <li><a class="dropdown-item" href="#">Children's Books</a></li>
                     </ul>
                 </li>
@@ -56,6 +56,7 @@
                 <a type="button" class="btn btn-outline-success fw-500 rounded ">
                     <i class="fa-solid fa-cart-shopping me-lg-2"></i>
                     <p class="d-none d-lg-inline">My Cart</p>
+                    <span class="badge bg-success text-white ms-1 rounded-pill">0</span>
                 </a>
             </div>
         </header>

@@ -24,9 +24,14 @@ class Books(db.Model):
     title = Column(String(250), nullable=False)
     author = Column(String(250), nullable=False)
     date = Column(String(250), nullable=False)
+    type = Column(String(250), nullable=False)
+    format = Column(String(250), nullable=False)
     price = Column(Integer)
+    sale_price = Column(Integer)
     description = Column(Text, nullable=False)
     img_url = Column(Text, nullable=False)
+    # stars = Column(String(250))
+    # reviews = Column(Text)
 
 
 with app.app_context():
@@ -43,9 +48,30 @@ def homepage():
     return render_template("index.html", books=new_books, year=CURRENT_YEAR)
 
 
+@app.route("/fiction")
+def show_fiction():
+    result = db.session.execute(db.select(Books))
+    all_books = result.scalars().all()
+    books = [book for book in all_books if book.type == "Fiction"]
+    return render_template("listing.html", books=books)
+
+
+@app.route("/non-fiction")
+def show_nonfiction():
+    result = db.session.execute(db.select(Books))
+    all_books = result.scalars().all()
+    books = [book for book in all_books if book.type == "Nonfiction"]
+    return render_template("listing.html", books=books)
+
+
 @app.route("/log_in")
 def log_in():
-    return render_template("login.html", year=CURRENT_YEAR)
+    return render_template("login.html")
+
+
+@app.route("/sign_up")
+def sign_up():
+    return render_template("registration.html")
 
 
 if __name__ == "__main__":
