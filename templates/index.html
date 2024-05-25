@@ -16,7 +16,7 @@
                         <div class="carousel-caption-bg"></div>
                         <h1>Unlock Your 30% Discount!</h1>
                         <p class="opacity-80">Sign up now and enjoy a 30% discount on your first purchase.</p>
-                        <p><a class="btn btn-lg btn-success px-3 py-2" href="#">Sign Up Today</a></p>
+                        <p><a class="btn btn-lg btn-success px-3 py-2" href="{{url_for('sign_up')}}">Sign Up Today</a></p>
                     </div>
                 </div>
             </div>
@@ -59,9 +59,9 @@
 
       <!-- Product section -->
 
-    <div class="py-5 px-3">
+    <div class="py-3 px-3">
         <div class="container">
-            <h3 class="fw-bold mb-sm-3 mb-md-5 text-center text-md-start text-success">New books</h3>
+            <h3 class="fw-bold mb-sm-3 mb-md-5 text-center text-md-start text-success py-3">New books</h3>
             <div class="row g-4">
                 {% for book in books %}
                     <div class="col-md-3">
@@ -70,12 +70,20 @@
                             <div class="card-body">
                                 <hr>
                                 <h5 class="card-title">${{ book.price }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ book.title }}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Hardback</h6>
-                                <a href="#" role="button" class="btn btn-success card-link py-2 px-4">Add to cart</a>
-                                <a title="Add to cart" href="#" class="btn btn-outline-warning card-link">
-                                    <i class="fa-solid fa-heart"></i>
-                                </a>
+                                <h6 class="card-subtitle mb-2 fw-bold">{{ book.title }}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">{{book.format}}</h6>
+                                <div class="d-flex align-items-center">
+                                    <form action="/add-to-cart" method="post" class="mb-0">
+                                        <input type="hidden" name="item_id" value="123">
+                                        <button type="submit" role="button" class="btn btn-success card-link py-2 px-4">Add to cart</button>
+                                    </form>
+                                    <form action="/add-to-wishlist" method="post" class="mb-0 px-4">
+                                        <input type="hidden" name="item_id" value="{{book.id}}">
+                                        <button type="submit" role="button" title="Add to wishlist" class="btn btn-outline-warning card-link ml-2">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +93,7 @@
     </div>
 
     <!-- New section -->
-    <div class="py-5 px-3">
+    <div class="py-3 px-3">
         <div class="container py-5">
             <h3 class="fw-bold  text-center text-md-start mb-3 text-success">Why choose Us?</h3>
                 <div class="row">
