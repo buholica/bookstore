@@ -74,7 +74,7 @@
                                 <h6 class="card-subtitle mb-2 text-muted">{{book.format}}</h6>
                                 <div class="d-flex align-items-center">
                                     <form action="/add-to-cart" method="post" class="mb-0">
-                                        <input type="hidden" name="item_id" value="123">
+                                        <input type="hidden" name="item_id" value="{{book.id}}">
                                         <button type="submit" role="button" class="btn btn-success card-link py-2 px-4">Add to cart</button>
                                     </form>
                                     <form action="/add-to-wishlist" method="post" class="mb-0 px-4">

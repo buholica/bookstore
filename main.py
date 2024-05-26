@@ -7,6 +7,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'HGGeye899GhsbY737Kg47dggfT'
 
+
 # ----------------------------- DATABASE ------------------------------- #
 class Base(DeclarativeBase):
     pass
@@ -38,6 +39,12 @@ with app.app_context():
     db.create_all()
 
 CURRENT_YEAR = datetime.now().year
+
+
+@app.context_processor
+def count_cart_items():
+    cart_count = len(session.get("cart", []))
+    return dict(cart_count=cart_count)
 
 # ----------------------------- Routes ------------------------- #
 @app.route("/")
@@ -81,23 +88,35 @@ def sign_up():
     return render_template("registration.html")
 
 
-@app.route("/cart")
+@app.route("/cart", methods=['GET'])
 def show_cart():
-    cart_items = session.get("cart", [])
-    return render_template("cart.html", cart_items=cart_items)
+    cart_items_ids = session.get("cart", [])
+    cart_items = []
+
+    for item_id in cart_items_ids:
+        item = Books.query.filter_by(id=item_id).first()
+        if item:
+            cart_items.append(item)
+
+    reversed_cart = cart_items[::-1]
+
+    total_price = sum(item.price for item in cart_items)
+    return render_template("cart.html", cart_items=reversed_cart, total=total_price)
 
 
 @app.route("/add-to-cart", methods=['POST'])
 def add_to_cart():
     item_id = request.form.get('item_id')
-    book_id = Books.query.filter_by(id=item_id).first()
     print(item_id)
-    print(book_id)
+    book = Books.query.filter_by(id=item_id).first()
 
-    if item_id == book_id:
+    if book:
         if "cart" not in session:
             session["cart"] = []
-        session["cart"].append(item_id)
+        session["cart"].append(book.id)
+
+        session.modified = True
+
     return redirect(url_for("show_cart"))
 
 

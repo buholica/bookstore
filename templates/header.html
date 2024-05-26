@@ -56,7 +56,9 @@
                 <a type="button" class="btn btn-outline-success fw-500 rounded" href="{{url_for('show_cart')}}">
                     <i class="fa-solid fa-cart-shopping me-lg-2"></i>
                     <p class="d-none d-lg-inline">My Cart</p>
-                    <span class="badge bg-success text-white ms-1 rounded-pill">0</span>
+                    {% if cart_count > 0: %}
+                        <span class="badge bg-success text-white ms-1 rounded-pill">{{cart_count}}</span>
+                    {% endif %}
                 </a>
             </div>
         </header>

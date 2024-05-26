@@ -28,10 +28,18 @@
 <!--                                    <span class="text-muted text-decoration-line-through">$20.00</span>$18.00-->
                                     <h6 class="card-subtitle mb-2 fw-bold">{{ book.title }}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ book.format }}</h6>
-                                    <a href="#" role="button" class="btn btn-success card-link py-2 px-4">Add to cart</a>
-                                    <a title="Add to cart" href="#" class="btn btn-outline-warning card-link">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </a>
+                                    <div class="d-flex align-items-center">
+                                    <form action="/add-to-cart" method="post" class="mb-0">
+                                        <input type="hidden" name="item_id" value="{{book.id}}">
+                                        <button type="submit" role="button" class="btn btn-success card-link py-2 px-4">Add to cart</button>
+                                    </form>
+                                    <form action="/add-to-wishlist" method="post" class="mb-0 px-4">
+                                        <input type="hidden" name="item_id" value="{{book.id}}">
+                                        <button type="submit" role="button" title="Add to wishlist" class="btn btn-outline-warning card-link ml-2">
+                                            <i class="fa-solid fa-heart"></i>
+                                        </button>
+                                    </form>
+                                </div>
                                 </div>
                             </div>
                         </div>
