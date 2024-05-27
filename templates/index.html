@@ -10,37 +10,48 @@
 
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="bd-placeholder-img" src ="/static/img/slide_1.jpg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></img>
+                <picture>
+                    <source media="(max-width: 768px)" srcset="/static/img/mobile_slide_1.jpg">
+                    <source media="(min-width: 769px)" srcset="/static/img/slide_1.jpg">
+                    <img class="bd-placeholder-img d-block w-100" src ="/static/img/slide_1.jpg" aria-hidden="true">
+                </picture>
                 <div class="container">
                     <div class="carousel-caption text-start">
                         <div class="carousel-caption-bg"></div>
-                        <h1>Unlock Your 30% Discount!</h1>
-                        <p class="opacity-80">Sign up now and enjoy a 30% discount on your first purchase.</p>
+                        <h1 class="carousel-title">Unlock Your 30% Discount!</h1>
+                        <p class="opacity-80 carousel-text">Sign up now and enjoy a 30% discount on your first purchase.</p>
                         <p><a class="btn btn-lg btn-success px-3 py-2" href="{{url_for('sign_up')}}">Sign Up Today</a></p>
                     </div>
                 </div>
             </div>
 
             <div class="carousel-item">
-                <img class="bd-placeholder-img" src="/static/img/slide_2.jpg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></img>
+                <picture>
+                    <source media="(max-width: 768px)" srcset="/static/img/mobile_slide_2.jpg">
+                    <source media="(min-width: 769px)" srcset="/static/img/slide_2.jpg">
+                    <img class="bd-placeholder-img d-block w-100" src ="/static/img/slide_2.jpg" aria-hidden="true">
+                </picture>
                 <div class="container">
                     <div class="carousel-caption">
                         <div class="carousel-caption-bg"></div>
-                        <h1>Join Our Book Clubs</h1>
-                        <p class="opacity-80">Discover and join local book clubs for engaging discussions and community gatherings.</p>
+                        <h1 class="carousel-title">Join Our Book Clubs</h1>
+                        <p class="opacity-80 carousel-text">Discover and join local book clubs for engaging discussions and community gatherings.</p>
                         <p><a class="btn btn-lg btn-success px-3 py-2" href="#">Learn More</a></p>
                     </div>
                 </div>
             </div>
 
             <div class="carousel-item">
-                <img class="bd-placeholder-img" src="/static/img/slide_3.jpg"
-                     width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></img>
+                <picture>
+                    <source media="(max-width: 768px)" srcset="/static/img/mobile_slide_3.jpg">
+                    <source media="(min-width: 769px)" srcset="/static/img/slide_3.jpg">
+                    <img class="bd-placeholder-img d-block w-100" src ="/static/img/slide_3.jpg" aria-hidden="true">
+                </picture>
                 <div class="container">
                     <div class="carousel-caption text-end">
                         <div class="carousel-caption-bg"></div>
-                        <h1>Enjoy Free Shipping</h1>
-                        <p class="opacity-80">Enjoy free shipping on your orders and conveniently pick them up at the nearest library.</p>
+                        <h1 class="carousel-title">Enjoy Free Shipping</h1>
+                        <p class="opacity-80 carousel-text">Enjoy free shipping on your orders and conveniently pick them up at the nearest library.</p>
                         <p><a class="btn btn-lg btn-success px-3 py-2" href="#">Learn More</a></p>
                     </div>
                 </div>
@@ -64,8 +75,8 @@
             <h3 class="fw-bold mb-sm-3 mb-md-5 text-center text-md-start text-success py-3">New books</h3>
             <div class="row g-4">
                 {% for book in books %}
-                    <div class="col-md-3">
-                        <div class="card" style="width: 19rem;">
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
                             <img alt="Book" class="img mx-auto d-block mt-3" src="{{ book.img_url }}" width="130px" height="185px">
                             <div class="card-body">
                                 <hr>
@@ -122,7 +133,7 @@
                     </div>
 
 
-                    <div class=" col-lg-4 col-md-6 d-flex align-items-center">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-center">
                         <div class="bg-white shadow-sm rounded-circle p-3">
                             <i class="fa-solid fa-plane  fs-1 text-warning"></i>
                         </div>

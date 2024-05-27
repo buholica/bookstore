@@ -21,6 +21,26 @@
     z-index: 2;
 }
 
+/* Larger height for mobile devices */
+@media (max-width: 768px) {
+    .carousel-caption {
+        position: relative;
+        z-index: 3;
+        padding: 20px;
+    }
+    .carousel-item {
+        height: 32rem;
+    }
+    .carousel-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .carousel-text {
+        font-size: 14px;
+    }
+}
+
+
 .carousel-caption h1,
 .carousel-caption p,
 .carousel-caption a {

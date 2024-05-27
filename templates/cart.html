@@ -3,100 +3,106 @@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
-                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                <div class="card rounded-4">
                     <div class="card-body p-0">
                         <div class="row g-0">
-                        <div class="col-lg-8">
-                            <div class="p-5">
-                            <div class="d-flex justify-content-between align-items-center mb-5">
-                                <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                                {% if items_amount == 1: %}
-                                    <h6 class="mb-0 text-muted">{{items_amount}} item</h6>
-                                {% else: %}
-                                    <h6 class="mb-0 text-muted">{{items_amount}} items</h6>
-                                {% endif %}
+                            <div class="col-lg-8">
+                                <div class="px-5 py-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                        {% if cart_count == 1: %}
+                                            <h6 class="mb-0 text-muted">{{cart_count}} item</h6>
+                                        {% elif cart_count > 1: %}
+                                            <h6 class="mb-0 text-muted">{{cart_count}} items</h6>
+                                        {% endif %}
+
+                                    </div>
+                                    <hr class="my-4">
+                                    {% if cart_count == 0: %}
+                                        <p>Your cart is empty</p>
+                                        <button  type="button" class="btn btn-outline-success btn-block btn-md">
+                                            <a href="{{url_for('homepage')}}" style="text-decoration:none;color: inherit; display: block; width: 100%; height: 100%;">
+                                                Continue shopping
+                                            </a>
+                                        </button>
+                                    {% else: %}
+                                        {% for item in cart_items: %}
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img src="{{item.img_url}}"
+                                                        class="img-fluid rounded-3" alt="Book">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <h5 class="text-black mb-0">{{item.title}}</h5>
+                                                    <h6 class="text-muted">{{item.format}}</h6>
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2">
+                                                        <i class="fas fa-minus" style="color: #198754"></i>
+                                                    </button>
+
+                                                    <div class="form-control form-control-sm text-center quantity"
+                                                        style="font-size: 18px;">1
+                                                    </div>
+
+                                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2">
+                                                        <i class="fas fa-plus" style="color: #198754"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    <h5 class="mb-0">${{ item.price }}</h5>
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+
+<!--                                    <hr class="my-4">-->
+                                </div>
                             </div>
-                            <hr class="my-4">
 
-                            {% for item in cart_items: %}
-                                <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                    <img src="{{item.img_url}}"
-                                        class="img-fluid rounded-3" alt="Book">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                    <h6 class="text-muted">{{item.title}}</h6>
-                                    <h6 class="text-black mb-0">{{item.format}}</h6>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+    <!--                            Summary-->
+                            <div class="col-lg-4 bg-success text-white rounded-end-4">
+                                <div class="p-5 py-4">
+                                    <h3 class="fw-bold mb-4 mt-2 pt-1">Summary</h3>
+                                    <!-- <hr class="my-4"> -->
 
-                                    <input id="form1" min="0" name="quantity" value="1" type="number"
-                                        class="form-control form-control-sm" />
+                                    <!-- <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-uppercase">items 3</h5>
+                                        <h5>$ 132.00</h5>
+                                    </div> -->
 
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                    <!-- <h5 class="text-uppercase mb-3">Shipping</h5>
+
+                                    <div class="mb-4 pb-2">
+                                        <select data-mdb-select-init>
+                                            <option value="1">Standard-Delivery- $5.00</option>
+                                            <option value="2">Free Delivery to the library</option>
+                                        </select>
+                                    </div> -->
+        <!--
+                                    <h5 class="text-uppercase mb-3">Have you got a promo code?</h5>
+
+                                    <div class="mb-5">
+                                        <div data-mdb-input-init class="form-outline">
+                                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                        </div>
+                                    </div> -->
+
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Total price</h5>
+                                        <h5>$ {{total}}</h5>
                                     </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                    <h6 class="mb-0">${{ item.price }}</h6>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                    <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                    <div class="d-grid gap-3">
+                                        <button type="button" class="btn btn-light btn-lg px-5">Checkout</button>
                                     </div>
                                 </div>
-                            {% endfor %}
-
-                            <hr class="my-4">
-
                             </div>
-                        </div>
-
-<!--                            Summary-->
-                        <div class="col-lg-4 bg-success text-white">
-                            <div class="p-5">
-                            <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                            <!-- <hr class="my-4"> -->
-
-                            <!-- <div class="d-flex justify-content-between mb-4">
-                                <h5 class="text-uppercase">items 3</h5>
-                                <h5>$ 132.00</h5>
-                            </div> -->
-
-                            <!-- <h5 class="text-uppercase mb-3">Shipping</h5>
-
-                            <div class="mb-4 pb-2">
-                                <select data-mdb-select-init>
-                                    <option value="1">Standard-Delivery- $5.00</option>
-                                    <option value="2">Free Delivery to the library</option>
-                                </select>
-                            </div> -->
-<!-- 
-                            <h5 class="text-uppercase mb-3">Have you got a promo code?</h5>
-
-                            <div class="mb-5">
-                                <div data-mdb-input-init class="form-outline">
-                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                <label class="form-label" for="form3Examplea2">Enter your code</label>
-                                </div>
-                            </div> -->
-
-                            <hr class="my-4">
-
-                            <div class="d-flex justify-content-between mb-5">
-                                <h5 class="text-uppercase">Total price</h5>
-                                <h5>$ {{total}}</h5>
-                            </div>
-
-                            <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-block btn-lg"
-                                data-mdb-ripple-color="dark">Checkout</button>
-
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </div>
