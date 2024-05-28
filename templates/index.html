@@ -74,31 +74,7 @@
         <div class="container">
             <h3 class="fw-bold mb-sm-3 mb-md-5 text-center text-md-start text-success py-3">New books</h3>
             <div class="row g-4">
-                {% for book in books %}
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <img alt="Book" class="img mx-auto d-block mt-3" src="{{ book.img_url }}" width="130px" height="185px">
-                            <div class="card-body">
-                                <hr>
-                                <h5 class="card-title">${{ book.price }}</h5>
-                                <h6 class="card-subtitle mb-2 fw-bold">{{ book.title }}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">{{book.format}}</h6>
-                                <div class="d-flex align-items-center">
-                                    <form action="/add-to-cart" method="post" class="mb-0">
-                                        <input type="hidden" name="item_id" value="{{book.id}}">
-                                        <button type="submit" role="button" class="btn btn-success card-link py-2 px-4">Add to cart</button>
-                                    </form>
-                                    <form action="/add-to-wishlist" method="post" class="mb-0 px-4">
-                                        <input type="hidden" name="item_id" value="{{book.id}}">
-                                        <button type="submit" role="button" title="Add to wishlist" class="btn btn-outline-warning card-link ml-2">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                {% include "cards.html" %}
             </div>
         </div>
     </div>

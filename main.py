@@ -78,6 +78,14 @@ def show_nonfiction():
     return render_template("listing.html", books=books, title=title)
 
 
+@app.route("/product/<int:book_id>")
+def show_pdp(book_id):
+    requested_book = db.get_or_404(Books, book_id)
+    related_books = Books.query.filter_by(type=requested_book.type).all()
+    new_related_books = related_books[-4:]
+    return render_template("pdp.html", book=requested_book, books=new_related_books)
+
+
 @app.route("/log_in")
 def log_in():
     return render_template("login.html")
@@ -107,7 +115,6 @@ def show_cart():
 @app.route("/add-to-cart", methods=['POST'])
 def add_to_cart():
     item_id = request.form.get('item_id')
-    print(item_id)
     book = Books.query.filter_by(id=item_id).first()
 
     if book:
