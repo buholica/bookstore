@@ -26,34 +26,51 @@
                                             </a>
                                         </button>
                                     {% else: %}
-                                        {% for item in cart_items: %}
+                                        {% for book in cart_items: %}
                                             <div class="row mb-4 d-flex justify-content-between align-items-center">
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
-                                                    <img src="{{item.img_url}}"
+                                                    <img src="{{book.img_url}}"
                                                         class="img-fluid rounded-3" alt="Book">
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
-                                                    <h5 class="text-black mb-0">{{item.title}}</h5>
-                                                    <h6 class="text-muted">{{item.format}}</h6>
+                                                    <h5 class="text-black mb-0">{{book.title}}</h5>
+                                                    <h6 class="text-muted">{{book.format}}</h6>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2">
-                                                        <i class="fas fa-minus" style="color: #198754"></i>
-                                                    </button>
+                                                    <form action="/decrease-quantity" method="post" class="mb-0">
+                                                        <input type="hidden" name="item_id" value="{{book.id}}">
+                                                        {% if cart_items_count[book.id] == 1: %}
+                                                            <button type="submit" role="button" class="btn card-link py-2 px-2" disabled
+                                                                style="border: none;">
+                                                                <i class="fas fa-minus" style="color: #198754"></i>
+                                                            </button>
+                                                        {% else: %}
+                                                            <button type="submit" role="button" class="btn card-link py-2 px-2">
+                                                                <i class="fas fa-minus" style="color: #198754"></i>
+                                                            </button>
+                                                        {% endif %}
+                                                    </form>
 
-                                                    <div class="form-control form-control-sm text-center quantity"
-                                                        style="font-size: 18px;">1
+                                                    <div class="form-control form-control-sm text-center quantity py-2"
+                                                        style="font-size: 18px;">{{cart_items_count[book.id]}}
                                                     </div>
-
-                                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2">
-                                                        <i class="fas fa-plus" style="color: #198754"></i>
-                                                    </button>
+                                                    <form action="/increase-quantity" method="post" class="mb-0">
+                                                        <input type="hidden" name="item_id" value="{{book.id}}">
+                                                        <button type="submit" role="button" class="btn card-link py-2 px-2">
+                                                            <i class="fas fa-plus" style="color: #198754"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h5 class="mb-0">${{ item.price }}</h5>
+                                                    <h5 class="mb-0">${{ book.price * cart_items_count[book.id] }}</h5>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                                    <form action="/remove-item-cart" method="post" class="mb-0">
+                                                            <input type="hidden" name="item_id" value="{{book.id}}">
+                                                            <button type="submit" role="button" class="btn card-link py-2 px-4">
+                                                                <i class="fas fa-times"></i>
+                                                            </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         {% endfor %}

@@ -46,6 +46,7 @@ def count_cart_items():
     cart_count = len(session.get("cart", []))
     return dict(cart_count=cart_count)
 
+
 # ----------------------------- Routes ------------------------- #
 @app.route("/")
 def homepage():
@@ -100,16 +101,20 @@ def sign_up():
 def show_cart():
     cart_items_ids = session.get("cart", [])
     cart_items = []
+    cart_items_count = {}
 
     for item_id in cart_items_ids:
         item = Books.query.filter_by(id=item_id).first()
         if item:
-            cart_items.append(item)
+            if item_id in cart_items_count:
+                cart_items_count[item_id] += 1
+            else:
+                cart_items_count[item_id] = 1
+                cart_items.append(item)
 
     reversed_cart = cart_items[::-1]
-
-    total_price = sum(item.price for item in cart_items)
-    return render_template("cart.html", cart_items=reversed_cart, total=total_price)
+    total_price = sum(item.price * cart_items_count[item.id] for item in cart_items)
+    return render_template("cart.html", cart_items=reversed_cart, total=total_price, cart_items_count=cart_items_count)
 
 
 @app.route("/add-to-cart", methods=['POST'])
@@ -126,6 +131,44 @@ def add_to_cart():
 
     return redirect(url_for("show_cart"))
 
+
+@app.route("/remove-item-cart", methods=['POST'])
+def remove_item_from_cart():
+    item_id = request.form.get("item_id")
+    cart_items_ids = session.get("cart", [])
+
+    try:
+        item_id_int = int(item_id)
+        if item_id_int in cart_items_ids:
+            updated_cart_list = [id for id in cart_items_ids if id != item_id_int]
+            session["cart"] = updated_cart_list
+            session.modified = True
+            print(session["cart"])
+    except ValueError:
+        print("The item_id is not integer.")
+    return redirect(url_for("show_cart"))
+
+
+@app.route("/increase-quantity", methods=['POST'])
+def increase_quantity():
+    item_id = request.form.get("item_id")
+    item_id_int = int(item_id)
+
+    session["cart"].append(item_id_int)
+    session.modified = True
+
+    return redirect(url_for("show_cart"))
+
+
+@app.route("/decrease-quantity", methods=['POST'])
+def decrease_quantity():
+    item_id = request.form.get("item_id")
+    item_id_int = int(item_id)
+
+    session["cart"].remove(item_id_int)
+    session.modified = True
+
+    return redirect(url_for("show_cart"))
 
 
 if __name__ == "__main__":
