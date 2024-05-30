@@ -38,13 +38,17 @@ class Books(db.Model):
 with app.app_context():
     db.create_all()
 
-CURRENT_YEAR = datetime.now().year
-
 
 @app.context_processor
 def count_cart_items():
     cart_count = len(session.get("cart", []))
     return dict(cart_count=cart_count)
+
+
+@app.context_processor
+def show_current_year():
+    current_year = datetime.now().year
+    return dict(current_year=current_year)
 
 
 # ----------------------------- Routes ------------------------- #
@@ -53,7 +57,7 @@ def homepage():
     result = db.session.execute(db.select(Books))
     books = result.scalars().all()
     new_books = books[-4:]
-    return render_template("index.html", books=new_books, year=CURRENT_YEAR)
+    return render_template("index.html", books=new_books)
 
 
 @app.route("/faq")
@@ -169,6 +173,11 @@ def decrease_quantity():
     session.modified = True
 
     return redirect(url_for("show_cart"))
+
+
+@app.route("/checkout")
+def checkout():
+    return render_template("checkout.html")
 
 
 if __name__ == "__main__":
