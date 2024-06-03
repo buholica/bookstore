@@ -62,7 +62,11 @@
                                                     </form>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h5 class="mb-0">${{ book.price * cart_items_count[book.id] }}</h5>
+                                                    {% if book.sale_price: %}
+                                                        <h5 class="mb-0">${{ book.sale_price * cart_items_count[book.id] }}</h5>
+                                                    {% else: %}
+                                                        <h5 class="mb-0">${{ book.price * cart_items_count[book.id] }}</h5>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <form action="/remove-item-cart" method="post" class="mb-0">

@@ -106,6 +106,7 @@ def show_cart():
     cart_items_ids = session.get("cart", [])
     cart_items = []
     cart_items_count = {}
+    total_price = None
 
     for item_id in cart_items_ids:
         item = Books.query.filter_by(id=item_id).first()
@@ -117,6 +118,7 @@ def show_cart():
                 cart_items.append(item)
 
     reversed_cart = cart_items[::-1]
+
     total_price = sum(item.price * cart_items_count[item.id] for item in cart_items)
     return render_template("cart.html", cart_items=reversed_cart, total=total_price, cart_items_count=cart_items_count)
 
@@ -177,7 +179,22 @@ def decrease_quantity():
 
 @app.route("/checkout")
 def checkout():
-    return render_template("checkout.html")
+    cart_items_ids = session.get("cart", [])
+    cart_items = []
+    cart_items_count = {}
+
+    for item_id in cart_items_ids:
+        item = Books.query.filter_by(id=item_id).first()
+        if item:
+            if item_id in cart_items_count:
+                cart_items_count[item_id] += 1
+            else:
+                cart_items_count[item_id] = 1
+                cart_items.append(item)
+
+    reversed_cart = cart_items[::-1]
+    total_price = sum(item.price * cart_items_count[item.id] for item in cart_items)
+    return render_template("checkout.html", cart_items=reversed_cart, total=total_price, cart_items_count=cart_items_count)
 
 
 if __name__ == "__main__":
