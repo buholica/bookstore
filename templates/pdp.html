@@ -10,14 +10,14 @@
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 class="display-5 fw-bolder">{{book.title}}</h1>
                         <div class="fs-5 mb-5">
-                            {% if book.sale_price is not none: %}
-                                <h5 style="display: inline-block;">${{book.sale_price}}</h5>
-                                <h6 class="card-title text-muted text-decoration-line-through" style="display: inline-block;">${{ book.price }}</h6>
+                            {% if book.old_price is not none: %}
+                                <h5 style="display: inline-block;">${{ book.price|two_decimal }}</h5>
+                                <h6 class="card-title text-muted text-decoration-line-through" style="display: inline-block;">${{ book.old_price|two_decimal }}</h6>
                             {% else: %}
-                                <h5 class="card-title">${{ book.price }}</h5>
+                                <h5 class="card-title">${{ book.price|two_decimal }}</h5>
                             {% endif %}
                         </div>
-                        <p class="lead">{{book.description}}</p>
+                        <p class="lead" style="font-size: 18px">{{book.description}}</p>
                         <div class="d-flex align-items-center">
                             <form action="/add-to-cart" method="post" class="mb-0">
                                 <input type="hidden" name="item_id" value="{{book.id}}">

@@ -36,17 +36,13 @@
 				        </h4>
 				        <ul class="list-group mb-3">
 					        {% for book in cart_items: %}
-				            <li class="list-group-item d-flex justify-content-between lh-sm">
-				                <div>
-				                    <h6 class="my-0">{{book.title}}</h6>
-				                    <small class="text-body-secondary">Quantity: {{ cart_items_count[book.id] }}</small>
-				                </div>
-					            {% if book.sale_price : %}
-					                <span class="text-body-secondary">${{book.sale_price * cart_items_count[book.id]}}</span>
-					            {% else: %}
-					                <span class="text-body-secondary">${{book.price * cart_items_count[book.id]}}</span>
-					            {% endif %}
-				            </li>
+					            <li class="list-group-item d-flex justify-content-between lh-sm">
+					                <div>
+					                    <h6 class="my-0">{{book.title}}</h6>
+					                    <small class="text-body-secondary">Quantity: {{ cart_items_count[book.id] }}</small>
+					                </div>
+						            <span class="text-body-secondary">${{(book.price * cart_items_count[book.id])|two_decimal }}</span>
+					            </li>
 					        {% endfor %}
 				            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
 				                <div class="text-success">
@@ -57,7 +53,7 @@
 				            </li>
 				            <li class="list-group-item d-flex justify-content-between">
 				                <span>Total (USD)</span>
-				                <strong>${{total}}</strong>
+				                <strong>${{ total }}</strong>
 				            </li>
 				        </ul>
 

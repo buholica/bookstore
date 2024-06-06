@@ -27,11 +27,12 @@ class Books(db.Model):
     date = Column(String(250), nullable=False)
     type = Column(String(250), nullable=False)
     format = Column(String(250), nullable=False)
-    price = Column(Integer)
-    sale_price = Column(Integer)
+    price = Column(Integer, nullable=False)
+    old_price = Column(Integer)
     description = Column(Text, nullable=False)
     img_url = Column(Text, nullable=False)
-    # stars = Column(String(250))
+    stars = Column(Integer)
+    amount = Column(Integer, nullable=False)
     # reviews = Column(Text)
 
 
@@ -49,6 +50,11 @@ def count_cart_items():
 def show_current_year():
     current_year = datetime.now().year
     return dict(current_year=current_year)
+
+
+@app.template_filter("two_decimal")
+def two_decimal_filter(number):
+    return f"{number:.2f}"
 
 
 # ----------------------------- Routes ------------------------- #
@@ -119,7 +125,7 @@ def show_cart():
 
     reversed_cart = cart_items[::-1]
 
-    total_price = sum(item.price * cart_items_count[item.id] for item in cart_items)
+    total_price = str(round(sum(item.price * cart_items_count[item.id] for item in cart_items), 2))
     return render_template("cart.html", cart_items=reversed_cart, total=total_price, cart_items_count=cart_items_count)
 
 
@@ -193,7 +199,7 @@ def checkout():
                 cart_items.append(item)
 
     reversed_cart = cart_items[::-1]
-    total_price = sum(item.price * cart_items_count[item.id] for item in cart_items)
+    total_price = str(round(sum(item.price * cart_items_count[item.id] for item in cart_items), 2))
     return render_template("checkout.html", cart_items=reversed_cart, total=total_price, cart_items_count=cart_items_count)
 
 

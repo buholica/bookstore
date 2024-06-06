@@ -9,11 +9,11 @@
 			</a>
 			<div class="card-body">
 				<hr>
-				{% if book.sale_price is not none: %}
-					<h5 style="display: inline-block;">${{book.sale_price}}</h5>
-					<h6 class="card-title text-muted text-decoration-line-through" style="display: inline-block;">${{ book.price }}</h6>
+				{% if book.old_price: %}
+					<h5 style="display: inline-block;">${{book.price|two_decimal}}</h5>
+					<h6 class="card-title text-muted text-decoration-line-through" style="display: inline-block;">${{ book.old_price|two_decimal }}</h6>
 				{% else: %}
-					<h5 class="card-title">${{ book.price }}</h5>
+					<h5 class="card-title">${{ book.price|two_decimal }}</h5>
 				{% endif %}
 				<a href="{{ url_for('show_pdp', book_id=book.id) }}"  style="text-decoration: none; color:black;">
 					<h6 class="card-subtitle mb-2 fw-bold">{{ book.title }}</h6>

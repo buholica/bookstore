@@ -62,11 +62,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    {% if book.sale_price: %}
-                                                        <h5 class="mb-0">${{ book.sale_price * cart_items_count[book.id] }}</h5>
-                                                    {% else: %}
-                                                        <h5 class="mb-0">${{ book.price * cart_items_count[book.id] }}</h5>
-                                                    {% endif %}
+                                                    <h5 class="mb-0">${{ (book.price * cart_items_count[book.id])|two_decimal }}</h5>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <form action="/remove-item-cart" method="post" class="mb-0">
@@ -117,7 +113,7 @@
 
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5>$ {{total}}</h5>
+                                        <h5>$ {{ total }}</h5>
                                     </div>
                                     <div class="d-grid gap-3">
                                         <a href={{url_for('checkout')}}>
