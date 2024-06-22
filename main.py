@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship, DeclarativeBase
-from sqlalchemy import Integer, String, Text, ForeignKey, Column
+from sqlalchemy import Integer, String, Text, Column
 from datetime import datetime
+from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'HGGeye899GhsbY737Kg47dggfT'
@@ -33,7 +35,13 @@ class Books(db.Model):
     img_url = Column(Text, nullable=False)
     stars = Column(Integer)
     amount = Column(Integer, nullable=False)
-    # reviews = Column(Text)
+
+
+class Users(UserMixin, db.Model):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    email = Column(String(250), nullable=False)
+    password = Column(String(250), nullable=False)
 
 
 with app.app_context():
@@ -102,8 +110,36 @@ def log_in():
     return render_template("login.html")
 
 
-@app.route("/sign_up")
+@app.route("/sign_up", methods=["GET", "POST"])
 def sign_up():
+    if request.method == "POST":
+        user_email = request.form.get("user-email")
+        user_password = request.form.get("user-password")
+
+        if not user_email or not user_password:
+            flash("Email and password are required.")
+            return redirect(url_for("sign_up"))
+
+        try:
+            data = db.session.execute(db.select(Users).where(Users.email == user_email))
+            user = data.scalar()
+        except Exception as e:
+            app.logger.error(f"Database error: {e}")
+            flash("An error occurred. Please try again.")
+            return redirect(url_for("sign_up"))
+
+        if user:
+            flash("You've already signed up with this email. Please, log in.")
+        else:
+            new_user = Users(
+                email=user_email,
+                password=generate_password_hash(request.form.get("user-password"), method="pbkdf2:sha256", salt_length=8)
+            )
+            db.session.add(new_user)
+            db.session.commit()
+            # return redirect(url_for("homepage"))
+            return redirect(url_for("show_cart"))
+
     return render_template("registration.html")
 
 
@@ -112,7 +148,6 @@ def show_cart():
     cart_items_ids = session.get("cart", [])
     cart_items = []
     cart_items_count = {}
-    total_price = None
 
     for item_id in cart_items_ids:
         item = Books.query.filter_by(id=item_id).first()
